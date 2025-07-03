@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Meeting Room - TALKNEST</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+  <h2>Room Id: <%= roomId %></h2>
+  <h3>Username: <%= username %></h3>
+
+  <div id="video-grid"></div>
+
+
+<div class="controls">
+  <button id="muteButton"><i class="fas fa-microphone"></i> Mute</button>
+  <button id="videoButton"><i class="fas fa-video"></i> Stop Video</button>
+  <button id="participantsToggle">Participants</button>
+  <button id="chatToggle"><i class="fas fa-comments"></i> Chat</button>
+  <button id="leaveButton"><i class="fas fa-sign-out-alt"></i> Leave</button>
+</div>
+
+<div class="participants-container hidden">
+  <h2>Participants</h2>
+  <ul id="participantsList"></ul>
+</div>
+
+<div class="chat-container hidden">
+  <div class="chat-header">Chat</div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <input type="text" id="chat-input" placeholder="Type a message..." />
+</div>
+
+
+  <script>
+    const ROOM_ID = "<%= roomId %>";
+    const USERNAME = "<%= username %>";
+  </script>
+  <script src="/script.js"></script>
+</body>
+</html>

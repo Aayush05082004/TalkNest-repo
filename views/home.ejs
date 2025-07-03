@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TALKNEST - Home</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Welcome to TALKNEST</h1>
+
+  <h2>Create Meeting</h2>
+  <form action="/create-room" method="POST">
+    <input type="text" name="username" placeholder="Your Name" required />
+    <input type="password" name="password" placeholder="Set Meeting Password" required />
+    <button type="submit">Create Meeting</button>
+  </form>
+
+  <h2>Join Meeting</h2>
+  <form action="/join" method="GET">
+    <input type="text" name="roomId" placeholder="Meeting ID" required />
+    <input type="text" name="username" placeholder="Your Name" required />
+    <button type="submit">Join Meeting</button>
+  </form>
+</body>
+</html>

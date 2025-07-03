@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Join Meeting - TALKNEST</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Join Meeting: <%= roomId %></h1>
+  <p>Username: <strong><%= username %></strong></p>
+
+  <form id="join-form">
+    <input type="hidden" id="roomId" value="<%= roomId %>" />
+    <input type="hidden" id="username" value="<%= username %>" />
+
+    <label for="password">Meeting Password:</label><br/>
+    <input type="password" id="password" placeholder="Enter password" required /><br/><br/>
+    <button type="submit">Join Room</button>
+  </form>
+
+  <p id="error" style="color:red;"></p>
+
+  <script>
+    document.getElementById('join-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const roomId = document.getElementById('roomId').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('/verify-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomId, password, username })
+      });
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = data.redirectUrl;
+      } else {
+        document.getElementById('error').textContent = 'Incorrect password. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
