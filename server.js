@@ -18,6 +18,10 @@ const roomPasswords = {};
 app.get('/', (req, res) => {
   res.render('home');
 });
+// Prevent "Not Found" if user refreshes /create-room
+app.get('/create-room', (req, res) => {
+  res.redirect('/');
+});
 
 app.post('/create-room', (req, res) => {
   const { username, password } = req.body;
@@ -26,7 +30,7 @@ app.post('/create-room', (req, res) => {
   }
   const roomId = uuidv4();
   roomPasswords[roomId] = password;
-  res.redirect(`/join?roomId=${roomId}&username=${encodeURIComponent(username)}`);
+  res.redirect(`${req.protocol}://${req.get('host')}/join?roomId=${roomId}&username=${encodeURIComponent(username)}`);
 });
 
 app.get('/join', (req, res) => {
