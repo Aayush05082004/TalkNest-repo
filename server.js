@@ -73,8 +73,9 @@ io.on('connection', socket => {
     io.to(roomId).emit('participants-update', Object.values(usersInRoom[roomId]));
 
     socket.on('message', msg => {
-      io.to(roomId).emit('createMessage', msg);
-    });
+  socket.to(roomId).emit('createMessage', msg);
+});
+
 
     socket.on('disconnect', () => {
       if (usersInRoom[roomId]) {
@@ -87,6 +88,8 @@ io.on('connection', socket => {
 });
 
 
-server.listen(3030, () => {
-  console.log('Server running on http://localhost:3030');
+const PORT = process.env.PORT || 3030;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+

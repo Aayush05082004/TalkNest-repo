@@ -23,18 +23,22 @@ navigator.mediaDevices.getUserMedia({
   addVideoStream(myVideo, stream);
 
   const peer = new Peer(undefined, {
-    path: '/peerjs',
-    host: '/',
-    port: '3030',
-  });
+  path: '/peerjs',
+  host: window.location.hostname,
+  port: window.location.protocol === 'https:' ? 443 : 3030,
+});
+
 
   peer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id, USERNAME);
   });
 
   socket.on('user-connected', (userId, username) => {
+  setTimeout(() => {
     connectToNewUser(userId, stream);
-  });
+  }, 1000);
+});
+
 
   socket.on('user-disconnected', userId => {
     if (peers[userId]) peers[userId].close();
